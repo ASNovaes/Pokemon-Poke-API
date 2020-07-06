@@ -1,47 +1,50 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/main.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/main.css" />
     <title>POKEAPI</title>
-</head>
-<body>
-
-<div class="container">
-    <header class="header-page">
+  </head>
+  <body>
+    <div class="container">
+      <header class="header-page">
         <nav class="header-page__nav"></nav>
-    </header>
-     
-    <div class="bar-search">
-        <input type="text" placeholder="Pesquisar por nome ou pokeId" class="bar-search__input">
-    </div>
+      </header>
 
-    <div class="bar-filter-by-type"></div>
+      <div class="bar-search">
+        <input
+          type="text"
+          placeholder="Pesquisar por nome ou pokeId"
+          class="bar-search__input"
+        />
+      </div>
 
-    <div class="bar-filter-advanced">
+      <div class="bar-filter-by-type"></div>
+
+      <div class="bar-filter-advanced">
         <div></div>
-    <form>
-        <p>
+        <form>
+          <p>
             <label>
-                Mostrar de: <input type="text" value="1" name="" id="fromNumber"> 
+              Mostrar de:
+              <input type="text" value="1" name="" id="fromNumber" />
             </label>
-        </p>
-        <p>
+          </p>
+          <p>
             <label>
-                Até: <input type="text" value="20" name="" id="toNumber"> 
+              Até: <input type="text" value="20" name="" id="toNumber" />
             </label>
-        </p>
-        <button class="btn btn-load">OK</button>
-    </form>
-    </div>
-    <div class="content"></div>
-    <footer class="footer-page">
+          </p>
+          <button class="btn btn-load">OK</button>
+        </form>
+      </div>
+      <div class="content"></div>
+      <footer class="footer-page">
         <p>Made by Alex Novaes</p>
-    </footer>
-</div>
-    
-</body>
-<script src="./js/main.js"></script>
+      </footer>
+    </div>
+  </body>
+  <script src="./js/main.js"></script>
 </html>
