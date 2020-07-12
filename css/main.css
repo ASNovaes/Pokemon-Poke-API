@@ -1,5 +1,3 @@
-/*amarelo rgb(255,202,8); azul  rgb(48,107,178)*/
-
 @font-face {
     font-family: 'pokemon';
     src: url('../css/Pokemon\ Hollow.ttf');
@@ -15,14 +13,41 @@
 }
 
 * {
+    border: none;
     box-sizing: border-box;
     font-family: 'pokemon-solid';
     letter-spacing: 0.2em;
+    list-style: none;
+    outline: none;
+    padding: 0;
 }
 
 img {
     width: 100%;
 }
+
+/* 
+
+==> Criar Cores padrão p/ background
+
+ cinza      --> #4c4c4c
+ amarela    --> rgb(255, 202, 8)
+ azul       --> rgb(48, 107, 178)
+ cinza      --> #ccc
+ preto      --> #000
+ branca     --> #fff
+ preto      --> rgba(0, 0, 0, 0.767)
+
+==> Criar Cores padrão p/ font 
+
+
+==> Definir default
+ outline: 0;
+ border: 0;
+ padding: 0;
+ list-style: none;
+
+*/
 
 .header-page {
     background: url(../img/pokemon-logo.png) no-repeat center center /60vh;
@@ -48,7 +73,6 @@ img {
     border: 3px solid rgb(48, 107, 178);
     border-radius: 1px;
     height: 40px;
-    outline: none;
     text-indent: 5px;
     width: 100%;
 }
@@ -109,8 +133,6 @@ img {
     margin-right: 10px;
     background: rgb(250, 250, 250);
     box-shadow: 1px 2px 5px #ccc;
-    border: none;
-    outline: none;
     padding: 0px 5px;
     text-align: center;
     width: 50px;
@@ -123,7 +145,6 @@ img {
     color: #fff;
     cursor: pointer;
     font-size: 0.8em;
-    outline: none;
     text-align: center;
 }
 
