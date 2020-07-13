@@ -48,8 +48,7 @@ img {
 .bar-search__input {
     background: rgb(255, 202, 8);
     border: 3px solid rgb(48, 107, 178);
-    border-radius: 1px;git status
-
+    border-radius: 1px;
     height: 40px;
     text-indent: 5px;
     width: 100%;
