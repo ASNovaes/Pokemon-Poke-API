@@ -26,29 +26,6 @@ img {
     width: 100%;
 }
 
-/* 
-
-==> Criar Cores padrão p/ background
-
- cinza      --> #4c4c4c
- amarela    --> rgb(255, 202, 8)
- azul       --> rgb(48, 107, 178)
- cinza      --> #ccc
- preto      --> #000
- branca     --> #fff
- preto      --> rgba(0, 0, 0, 0.767)
-
-==> Criar Cores padrão p/ font 
-
-
-==> Definir default
- outline: 0;
- border: 0;
- padding: 0;
- list-style: none;
-
-*/
-
 .header-page {
     background: url(../img/pokemon-logo.png) no-repeat center center /60vh;
     border-bottom: 50px solid #4c4c4c;
@@ -71,7 +48,8 @@ img {
 .bar-search__input {
     background: rgb(255, 202, 8);
     border: 3px solid rgb(48, 107, 178);
-    border-radius: 1px;
+    border-radius: 1px;git status
+
     height: 40px;
     text-indent: 5px;
     width: 100%;
