@@ -19,11 +19,25 @@
     letter-spacing: 0.2em;
     list-style: none;
     outline: none;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
     padding: 0;
 }
 
 img {
     width: 100%;
+}
+
+.wrapper {
+    min-height: 100%;
+    position: relative;
+}
+
+.container {
+    padding-bottom: 100px;
 }
 
 .header-page {
@@ -226,12 +240,17 @@ img {
 }
 
 .footer-page {
+    align-items: center;
     background: black;
-    border-top: 30px solid #4c4c4c;
+    bottom: 0;
+    border-top: 20px solid #4c4c4c;
     box-sizing: initial;
+    display: flex;
     color: #fff;
     height: 50px;
-    margin-top: 100px;
+    justify-content: center;
+    left: 0;
+    position: absolute;
     text-align: center;
     width: 100%;
 }
