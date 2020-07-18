@@ -3,11 +3,9 @@
 const content = document.querySelector('.content');
 let typePoke;
 
-
-const addEvent = (elements, event, fn) => {
-    elements.forEach((el, i) => el.addEventListener(event, fn));
+const addEventListenerInDOMList = (list, event, fn) => {
+    list.forEach(el => el.addEventListener(event, fn));
 }
-
 
 const colorPalette = {
     fire: '#eb4d4b',
@@ -29,41 +27,104 @@ const colorPalette = {
     steel: '#474a51'
 }
 
-
-const getDataApi = (url, fn) => {
+const getDataApi = (url, fn, container, hasEvent) => {
 
     fetch(url)
         .then(res => res.json())
-        .then(data => fn(data))
+        .then(data => fn(data, container, hasEvent))
         .catch(err => errorMessage());
 }
 
-
-const templateCardPoke = (pokemon) => {
+const templateCardPoke = (pokemon, container = content, hasEvent = true) => {
 
     const { id, name } = pokemon;
-    let color = paintAccordingToType(pokemon);
+    let color = paintCardAccordingToType(pokemon);
     let urlImage = `https://pokeres.bastionbot.org/images/pokemon/${id}.png`
 
-    content.innerHTML += `
+
+    container.innerHTML += `
        <div class="card" data-color=${color} data-id=${id}>
-        <span class="card__poke-id" style="background: ${color}">${id}</span>
+        <span class="card__poke-id" data-id=${id} style="background: ${color}">${id}</span>
         <div class="card-img">
             <img src=${urlImage} data-id="${id}" alt="Sprite of ${name}" data-color=${color}>
         </div>
-               <div class="card-name" style="background: ${color} "><p data-id=${id}>${name}</p></div>
+               <div class="card-name" style="background: ${color}"><p data-id=${id}>${name}</p></div>
        </div>
        `
+    if (container == dialog) {
+
+        let type = createTypePokeBagde(pokemon);
+
+        container.innerHTML += `
+        <div class="card-info">
+        <h1 style="color: ${color}">About</h1>
+        <table>
+          <tbody>
+            <tr>
+              <td>Weight</td>
+              <td>${pokemon.weight}</td>
+            </tr>
+            <tr>
+              <td>Height</td>
+              <td>${pokemon.height}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div>
+          ${type}
+        </div>
+      </div>
+            `
+    }
+
     const card = document.querySelectorAll('.card');
     paintBackgroundCardWhileFocused(card);
-    addEvent(card, 'click', openPokemonFeatureBoard);
+
+    if (hasEvent) {
+        addEventListenerInDOMList(card, 'click', openPokemonFeatureBoard);
+    }
 }
 
-const openPokemonFeatureBoard = (e) => {
+const createTypePokeBagde = pokemon => {
+    let types = pokemon.types.map((el, i) => {
+        return `<span style="background: ${colorPalette[el.type.name]}">${el.type.name}</span>`
+    });
 
+    return types.join().replace(',', '');
+}
+
+const paintCardAccordingToType = pokemon => {
+
+    const nameColor = pokemon.types[0].type.name;
+    return colorPalette[nameColor];
+}
+
+const openPokemonFeatureBoard = e => {
+
+    const dialog = document.getElementById('dialog');
+    dialog.innerHTML = '';
+
+    let posPageYoffset = window.pageYOffset;
+    dialog.style.top = `${posPageYoffset}px`;
     const id = e.target.dataset.id;
-    clearContent();
-    callPokeApi(id, 1, templateCardPoke);
+
+    configDialog('hidden', 'block', 'flex');
+    callPokeApi(id, 1, templateCardPoke, dialog, false);
+}
+
+const closePokemonFeatureBoard = () => {
+    //overflow, overlayDisplay, dialogDisplay;
+    configDialog('auto', 'none', 'none');
+}
+
+const configDialog = (overflow, overlayDisplay, dialogDisplay) => {
+    const overlay = document.getElementById('overlay');
+
+    document.body.style.overflow = overflow;
+    overlay.style.display = overlayDisplay
+    dialog.style.display = dialogDisplay;
+
+    overlayDisplay === 'block' ? overlay.addEventListener('click', closePokemonFeatureBoard) : true;
 }
 
 const errorMessage = () => {
@@ -71,21 +132,12 @@ const errorMessage = () => {
     return content.innerHTML = 'Nada Encontrado!';
 }
 
-
 const clearContent = () => {
 
     return content.innerHTML = '';
 }
 
-
-const paintAccordingToType = (pokemon) => {
-
-    const nameColor = pokemon.types[0].type.name;
-    return colorPalette[nameColor];
-}
-
-
-const paintBackgroundCardWhileFocused = (cards) => {
+const paintBackgroundCardWhileFocused = cards => {
 
     ['mouseout', 'mouseover'].forEach((ev, i) => {
         [...cards].forEach(card => {
@@ -97,25 +149,24 @@ const paintBackgroundCardWhileFocused = (cards) => {
     });
 }
 
-
-const callPokeApi = (id = 1, amountOfPokemon = 20, fn = templateCardPoke) => {
+const callPokeApi = (id = 1, amountOfPokemon = 20, fn = templateCardPoke, container, hasEvent) => {
     //max 807 pokemons
 
     new Array(amountOfPokemon).fill('').forEach((el, i) => {
 
         amountOfPokemon == 1 ? i = '' : true;
 
-        let url = (`https://pokeapi.co/api/v2/pokemon/${i + id}`);
-        getDataApi(url, fn);
+        let baseUrl = (`https://pokeapi.co/api/v2/pokemon/${i + id}`);
+        getDataApi(baseUrl, fn, container, hasEvent);
     });
 }
 
-
-const searchPokemon = (e) => {
+const searchPokemon = e => {
 
     let valuePoke = e.target.value;
     clearContent();
 
+    console.log(valuePoke)
     if (valuePoke == '') {
         callPokeApi();
 
@@ -126,8 +177,7 @@ const searchPokemon = (e) => {
     e.target.value = '';
 }
 
-
-const loadCardPokemonFromTo = (e) => {
+const loadCardPokemonFromTo = e => {
     e.preventDefault();
 
     removePaintAllOptions();
@@ -151,7 +201,6 @@ const loadCardPokemonFromTo = (e) => {
     }
 }
 
-
 const loadOptionByTypeFilter = () => {
 
     const barFilterByType = document.querySelector('.bar-filter-by-type');
@@ -163,11 +212,10 @@ const loadOptionByTypeFilter = () => {
     }
 
     const optionByType = document.querySelectorAll('.optionByType');
-    addEvent([...optionByType], 'click', filterPokeByType);
+    addEventListenerInDOMList([...optionByType], 'click', filterPokeByType);
 }
 
-
-const filterPokeByType = (e) => {
+const filterPokeByType = e => {
 
     typePoke = e.target.innerHTML;
     paintOptionSelected(e);
@@ -175,27 +223,23 @@ const filterPokeByType = (e) => {
     callPokeApi(1, 807, loadFilteredPokemon);
 }
 
-
-const loadFilteredPokemon = (pokemon) => {
+const loadFilteredPokemon = pokemon => {
 
     pokemon.types.forEach(el => el.type.name == typePoke ?
         templateCardPoke(pokemon) : false);
 }
 
-
-const paintOptionSelected = (e) => {
+const paintOptionSelected = e => {
 
     removePaintAllOptions();
     e.target.classList.add('active');
 }
-
 
 const removePaintAllOptions = () => {
 
     const optionByType = document.querySelectorAll('.optionByType');
     [...optionByType].forEach(el => el.classList.remove('active'));
 }
-
 
 const bar_search = document.querySelector('.bar-search__input');
 const btn_load = document.querySelector('.btn-load');
