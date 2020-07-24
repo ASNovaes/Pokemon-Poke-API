@@ -263,10 +263,10 @@ img {
 
 .footer-page {
     align-items: center;
-    background: black;
+    background: #000;
     bottom: 0;
     border-top: 20px solid #4c4c4c;
-    box-sizing: initial;
+    box-sizing: content-box;
     display: flex;
     color: #fff;
     height: 50px;
@@ -279,7 +279,7 @@ img {
 
 @media (min-width: 0px) and (max-width: 700px) {
     .bar-search {
-        width: 80vw;
+        width: 90vw;
     }
 }
 

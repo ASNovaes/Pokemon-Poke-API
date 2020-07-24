@@ -107,7 +107,7 @@ const openPokemonFeatureBoard = e => {
     dialog.style.top = `${posPageYoffset}px`;
     const id = e.target.dataset.id;
 
-    configDialog('hidden', 'block', 'flex');
+    configDialog('auto', 'block', 'flex');
     callPokeApi(id, 1, templateCardPoke, dialog, false);
 }
 
