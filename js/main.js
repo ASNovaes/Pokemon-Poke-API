@@ -39,7 +39,7 @@ const templateCardPoke = (pokemon, container = content, hasEvent = true) => {
 
     const { id, name } = pokemon;
     let color = paintCardAccordingToType(pokemon);
-    let urlImage = `https://pokeres.bastionbot.org/images/pokemon/${id}.png`;
+    let urlImage = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
 
     container.innerHTML += `
        <div class="card" data-color=${color} data-id=${id}>
